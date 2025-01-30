@@ -1,0 +1,7 @@
+cli = { url = "https://github.com/WebAssembly/wasi-cli/archive/v0.2.2.tar.gz" }
+clocks = { url = "https://github.com/WebAssembly/wasi-clocks/archive/v0.2.2.tar.gz" }
+filesystem = { url = "https://github.com/WebAssembly/wasi-filesystem/archive/v0.2.2.tar.gz" }
+io = { url = "https://github.com/WebAssembly/wasi-io/archive/v0.2.2.tar.gz" }
+null = { path = "../../wit" }
+random = { url = "https://github.com/WebAssembly/wasi-random/archive/v0.2.2.tar.gz" }
+sockets = { url = "https://github.com/WebAssembly/wasi-sockets/archive/v0.2.2.tar.gz" }

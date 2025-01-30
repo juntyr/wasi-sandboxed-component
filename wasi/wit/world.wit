@@ -1,0 +1,13 @@
+package wasi:null@0.2.2;
+
+interface io {
+  use wasi:io/poll@0.2.2.{pollable};
+  use wasi:io/streams@0.2.2.{input-stream, output-stream};
+
+  ready-pollable: func() -> pollable;
+  closed-input: func() -> input-stream;
+  output-sink: func() -> output-stream;
+
+  stdout: func() -> output-stream;
+  stderr: func() -> output-stream;
+}

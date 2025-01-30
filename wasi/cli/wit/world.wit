@@ -1,0 +1,16 @@
+package fcbench:wasi@0.2.2;
+
+world virtual-cli {
+  import wasi:null/io@0.2.2;
+
+  export wasi:cli/environment@0.2.2;
+  export wasi:cli/exit@0.2.2;
+  export wasi:cli/stdin@0.2.2;
+  export wasi:cli/stdout@0.2.2;
+  export wasi:cli/stderr@0.2.2;
+  export wasi:cli/terminal-input@0.2.2;
+  export wasi:cli/terminal-output@0.2.2;
+  export wasi:cli/terminal-stdin@0.2.2;
+  export wasi:cli/terminal-stdout@0.2.2;
+  export wasi:cli/terminal-stderr@0.2.2;
+}

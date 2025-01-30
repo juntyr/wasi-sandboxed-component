@@ -1,0 +1,67 @@
+[workspace]
+resolver = "2"
+members = [
+    "wasi/build",
+    "wasi/cli",
+    "wasi/clocks",
+    "wasi/filesystem",
+    "wasi/io",
+    "wasi/random",
+    "utils/check-wit-deps",
+]
+
+[workspace.package]
+edition = "2021"
+authors = ["Juniper Tyree <juniper.tyree@helsinki.fi>"]
+repository = "https://github.com/juntyr/wasi-sandboxed-component"
+license = "MPL-2.0"
+rust-version = "1.82"
+
+[workspace.dependencies]
+# workspace-internal crates
+check-wit-deps = { path = "utils/check-wit-deps", default-features = false }
+virtual-wasi-build = { path = "wasi/build", default-features = false }
+virtual-wasi-cli = { path = "wasi/cli", default-features = false }
+virtual-wasi-clocks = { path = "wasi/clocks", default-features = false }
+virtual-wasi-filesystem = { path = "wasi/filesystem", default-features = false }
+virtual-wasi-io = { path = "wasi/io", default-features = false }
+virtual-wasi-random = { path = "wasi/random", default-features = false }
+
+# crates.io third-party dependencies
+anyhow = { version = "1.0", default-features = false }
+rand_core = { version = "0.9", default-features = false }
+rand_pcg = { version = "0.9", default-features = false }
+scratch = { version = "1.0", default-features = false }
+tempdir = { version = "0.3", default-features = false }
+tokio = { version = "1.40", default-features = false }
+walkdir = { version = "2.5", default-features = false }
+wit-bindgen = { version = "0.38", default-features = false }
+wit-component = { version = "0.224", default-features = false }
+wit-deps = { version = "0.5", default-features = false }
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+unstable_features = "forbid"
+unused_crate_dependencies = "warn"
+
+[workspace.lints.clippy]
+complexity = { level = "warn", priority = -1 }
+correctness = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+perf = { level = "warn", priority = -1 }
+style = { level = "warn", priority = -1 }
+suspicious = { level = "warn", priority = -1 }
+
+cargo = { priority = -1, level = "warn" }
+cargo_common_metadata = "allow"           # FIXME
+multiple_crate_versions = "allow"         # FIXME
+
+unwrap_used = "warn"
+expect_used = "warn"
+indexing_slicing = "warn"
+panic = "warn"
+todo = "warn"
+unimplemented = "warn"
+unreachable = "warn"
+module_name_repetitions = "allow"

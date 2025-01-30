@@ -1,0 +1,4 @@
+[random]
+url = "https://github.com/WebAssembly/wasi-random/archive/v0.2.2.tar.gz"
+sha256 = "b4bb285b1c51aac2f8911f6b44ba1587108a2b24f910fe4774414dc286678b66"
+sha512 = "bc2ffca0ae48f54977a763a70fcfcd5f4fca6b7c530916352f98c59627cc3f5899e47b6308bd9848b8c72e14db57e254757d580010a3d56e6888dafce3dcb679"

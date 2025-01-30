@@ -1,0 +1,2 @@
+filesystem = { url = "https://github.com/WebAssembly/wasi-filesystem/archive/v0.2.2.tar.gz" }
+io = { url = "https://github.com/WebAssembly/wasi-io/archive/v0.2.2.tar.gz" }

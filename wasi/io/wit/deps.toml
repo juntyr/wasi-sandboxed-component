@@ -1,0 +1,2 @@
+io = { url = "https://github.com/WebAssembly/wasi-io/archive/v0.2.2.tar.gz" }
+null = { path = "../../wit" }

@@ -1,0 +1,19 @@
+[package]
+name = "virtual-wasi-random"
+version = "0.2.2"
+edition = { workspace = true }
+authors = { workspace = true }
+repository = { workspace = true }
+license = { workspace = true }
+rust-version = { workspace = true }
+
+[dependencies]
+rand_core = { workspace = true }
+rand_pcg = { workspace = true }
+wit-bindgen = { workspace = true, features = ["macros"] }
+
+[dev-dependencies]
+check-wit-deps = { workspace = true }
+
+[lints]
+workspace = true

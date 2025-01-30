@@ -1,0 +1,18 @@
+[submodule "wasi/wit-deps/wasi-cli"]
+	path = wasi/wit-deps/wasi-cli
+	url = https://github.com/WebAssembly/wasi-cli.git
+[submodule "wasi/wit-deps/wasi-clocks"]
+	path = wasi/wit-deps/wasi-clocks
+	url = https://github.com/WebAssembly/wasi-clocks.git
+[submodule "wasi/wit-deps/wasi-filesystem"]
+	path = wasi/wit-deps/wasi-filesystem
+	url = https://github.com/WebAssembly/wasi-filesystem.git
+[submodule "wasi/wit-deps/wasi-io"]
+	path = wasi/wit-deps/wasi-io
+	url = https://github.com/WebAssembly/wasi-io.git
+[submodule "wasi/wit-deps/wasi-random"]
+	path = wasi/wit-deps/wasi-random
+	url = https://github.com/WebAssembly/wasi-random.git
+[submodule "wasi/wit-deps/wasi-sockets"]
+	path = wasi/wit-deps/wasi-sockets
+	url = https://github.com/WebAssembly/wasi-sockets.git

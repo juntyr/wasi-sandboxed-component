@@ -1,0 +1,18 @@
+package fcbench:wasi@0.2.2;
+
+interface stdio {
+  write-stdout: func(contents: list<u8>);
+  flush-stdout: func();
+
+  write-stderr: func(contents: list<u8>);
+  flush-stderr: func();
+}
+
+world virtual-io {
+  import stdio;
+  export wasi:null/io@0.2.2;
+
+  export wasi:io/error@0.2.2;
+  export wasi:io/poll@0.2.2;
+  export wasi:io/streams@0.2.2;
+}

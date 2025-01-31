@@ -1,5 +1,5 @@
 [package]
-name = "virtual-wasi-cli"
+name = "wasi-sandboxed-cli"
 version = "0.2.2"
 edition = { workspace = true }
 authors = { workspace = true }

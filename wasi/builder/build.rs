@@ -6,8 +6,8 @@ use std::{
 };
 
 use ::{
-    virtual_wasi_cli as _, virtual_wasi_clocks as _, virtual_wasi_filesystem as _,
-    virtual_wasi_io as _, virtual_wasi_random as _,
+    wasi_sandboxed_cli as _, wasi_sandboxed_clocks as _, wasi_sandboxed_filesystem as _,
+    wasi_sandboxed_io as _, wasi_sandboxed_random as _,
 };
 
 fn main() -> io::Result<()> {
@@ -44,11 +44,11 @@ fn main() -> io::Result<()> {
     let mut all_component_const_names = Vec::new();
 
     for (crate_name, component_name) in [
-        ("virtual-wasi-cli", "virtual-wasi:cli"),
-        ("virtual-wasi-clocks", "virtual-wasi:clocks"),
-        ("virtual-wasi-filesystem", "virtual-wasi:filesystem"),
-        ("virtual-wasi-io", "virtual-wasi:io"),
-        ("virtual-wasi-random", "virtual-wasi:random"),
+        ("wasi-sandboxed-cli", "wasi-sandboxed:cli"),
+        ("wasi-sandboxed-clocks", "wasi-sandboxed:clocks"),
+        ("wasi-sandboxed-filesystem", "wasi-sandboxed:filesystem"),
+        ("wasi-sandboxed-io", "wasi-sandboxed:io"),
+        ("wasi-sandboxed-random", "wasi-sandboxed:random"),
     ] {
         let const_name = crate_name.to_uppercase().replace('-', "_");
 

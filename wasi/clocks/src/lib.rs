@@ -12,7 +12,7 @@ use crate::bindings::{
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "fcbench:wasi/virtual-clocks@0.2.2",
+        world: "wasi-sandboxed:clocks/exports@0.2.2",
         with: {
             "wasi:clocks/monotonic-clock@0.2.2": generate,
             "wasi:clocks/wall-clock@0.2.2": generate,

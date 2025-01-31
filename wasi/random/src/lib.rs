@@ -15,7 +15,7 @@ use crate::bindings::{
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "fcbench:wasi/virtual-random@0.2.2",
+        world: "wasi-sandboxed:random/exports@0.2.2",
         with: {
             "wasi:random/insecure@0.2.2": generate,
             "wasi:random/insecure-seed@0.2.2": generate,

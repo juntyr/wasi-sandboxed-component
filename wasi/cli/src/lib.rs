@@ -7,7 +7,7 @@ mod terminal;
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "fcbench:wasi/virtual-cli@0.2.2",
+        world: "wasi-sandboxed:cli/exports@0.2.2",
         with: {
             "wasi:cli/environment@0.2.2": generate,
             "wasi:cli/exit@0.2.2": generate,

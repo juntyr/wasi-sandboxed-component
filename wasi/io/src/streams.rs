@@ -7,7 +7,7 @@ use crate::{
                 InputStreamBorrow, OutputStream, StreamError,
             },
         },
-        fcbench::wasi::stdio::{flush_stderr, flush_stdout, write_stderr, write_stdout},
+        wasi_sandboxed::io::stdio::{flush_stderr, flush_stdout, write_stderr, write_stdout},
     },
     poll::VirtPollable,
     VirtIO,

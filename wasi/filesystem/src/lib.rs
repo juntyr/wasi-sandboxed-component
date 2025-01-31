@@ -18,7 +18,7 @@ use crate::bindings::{
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "fcbench:wasi/virtual-filesystem@0.2.2",
+        world: "wasi-sandboxed:filesystem/exports@0.2.2",
         with: {
             "wasi:filesystem/preopens@0.2.2": generate,
             "wasi:filesystem/types@0.2.2": generate,

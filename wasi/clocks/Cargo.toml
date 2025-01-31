@@ -1,5 +1,5 @@
 [package]
-name = "virtual-wasi-clocks"
+name = "wasi-sandboxed-clocks"
 version = "0.2.2"
 edition = { workspace = true }
 authors = { workspace = true }

@@ -1806,61 +1806,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
 
 [[package]]
-name = "virtual-wasi-build"
-version = "0.2.2"
-dependencies = [
- "scratch",
- "virtual-wasi-cli",
- "virtual-wasi-clocks",
- "virtual-wasi-filesystem",
- "virtual-wasi-io",
- "virtual-wasi-random",
- "wit-component",
-]
-
-[[package]]
-name = "virtual-wasi-cli"
-version = "0.2.2"
-dependencies = [
- "check-wit-deps",
- "wit-bindgen",
-]
-
-[[package]]
-name = "virtual-wasi-clocks"
-version = "0.2.2"
-dependencies = [
- "check-wit-deps",
- "wit-bindgen",
-]
-
-[[package]]
-name = "virtual-wasi-filesystem"
-version = "0.2.2"
-dependencies = [
- "check-wit-deps",
- "wit-bindgen",
-]
-
-[[package]]
-name = "virtual-wasi-io"
-version = "0.2.2"
-dependencies = [
- "check-wit-deps",
- "wit-bindgen",
-]
-
-[[package]]
-name = "virtual-wasi-random"
-version = "0.2.2"
-dependencies = [
- "check-wit-deps",
- "rand_core 0.9.0",
- "rand_pcg",
- "wit-bindgen",
-]
-
-[[package]]
 name = "walkdir"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1884,6 +1829,61 @@ name = "wasi"
 version = "0.11.0+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
+
+[[package]]
+name = "wasi-sandboxed-cli"
+version = "0.2.2"
+dependencies = [
+ "check-wit-deps",
+ "wit-bindgen",
+]
+
+[[package]]
+name = "wasi-sandboxed-clocks"
+version = "0.2.2"
+dependencies = [
+ "check-wit-deps",
+ "wit-bindgen",
+]
+
+[[package]]
+name = "wasi-sandboxed-component-builder"
+version = "0.2.2"
+dependencies = [
+ "scratch",
+ "wasi-sandboxed-cli",
+ "wasi-sandboxed-clocks",
+ "wasi-sandboxed-filesystem",
+ "wasi-sandboxed-io",
+ "wasi-sandboxed-random",
+ "wit-component",
+]
+
+[[package]]
+name = "wasi-sandboxed-filesystem"
+version = "0.2.2"
+dependencies = [
+ "check-wit-deps",
+ "wit-bindgen",
+]
+
+[[package]]
+name = "wasi-sandboxed-io"
+version = "0.2.2"
+dependencies = [
+ "check-wit-deps",
+ "wit-bindgen",
+]
+
+[[package]]
+name = "wasi-sandboxed-random"
+version = "0.2.2"
+dependencies = [
+ "check-wit-deps",
+ "rand_core 0.9.0",
+ "rand_pcg",
+ "wit-bindgen",
+]
 
 [[package]]
 name = "wasm-bindgen"

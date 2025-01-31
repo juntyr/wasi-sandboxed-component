@@ -14,7 +14,7 @@ pub mod streams;
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "fcbench:wasi/virtual-io@0.2.2",
+        world: "wasi-sandboxed:io/exports@0.2.2",
         with: {
             "wasi:io/error@0.2.2": generate,
             "wasi:io/poll@0.2.2": generate,

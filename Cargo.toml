@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
-    "wasi/build",
+    "wasi/builder",
     "wasi/cli",
     "wasi/clocks",
     "wasi/filesystem",
@@ -20,12 +20,12 @@ rust-version = "1.82"
 [workspace.dependencies]
 # workspace-internal crates
 check-wit-deps = { path = "utils/check-wit-deps", default-features = false }
-virtual-wasi-build = { path = "wasi/build", default-features = false }
-virtual-wasi-cli = { path = "wasi/cli", default-features = false }
-virtual-wasi-clocks = { path = "wasi/clocks", default-features = false }
-virtual-wasi-filesystem = { path = "wasi/filesystem", default-features = false }
-virtual-wasi-io = { path = "wasi/io", default-features = false }
-virtual-wasi-random = { path = "wasi/random", default-features = false }
+wasi-sandboxed-component-builder = { path = "wasi/builder", default-features = false }
+wasi-sandboxed-cli = { path = "wasi/cli", default-features = false }
+wasi-sandboxed-clocks = { path = "wasi/clocks", default-features = false }
+wasi-sandboxed-filesystem = { path = "wasi/filesystem", default-features = false }
+wasi-sandboxed-io = { path = "wasi/io", default-features = false }
+wasi-sandboxed-random = { path = "wasi/random", default-features = false }
 
 # crates.io third-party dependencies
 anyhow = { version = "1.0", default-features = false }

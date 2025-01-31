@@ -1,6 +1,6 @@
-package fcbench:wasi@0.2.2;
+package wasi-sandboxed:cli@0.2.2;
 
-world virtual-cli {
+world exports {
   import wasi:null/io@0.2.2;
 
   export wasi:cli/environment@0.2.2;

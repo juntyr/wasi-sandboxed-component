@@ -1,0 +1,173 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "*.*"
+  pull_request:
+    branches:
+      - "*"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  lock:
+    name: Cargo.lock
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+
+      - name: Install the Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          override: true
+
+      - name: Generate the minimum version lockfile
+        run: |
+          cargo update -Z minimal-versions
+          cargo update -Z direct-minimal-versions
+          mv Cargo.lock Cargo.lock.min
+
+      - name: Generate the current version lockfile
+        run: cargo update
+
+      - name: Upload the Cargo lockfiles
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cargo.lock
+          path: |
+            Cargo.lock
+            Cargo.lock.min
+
+  check:
+    name: Check
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        rust: ["1.82", stable, nightly]
+        lock: ["Cargo.lock", "Cargo.lock.min"]
+    runs-on: ${{ matrix.os }}
+    needs: lock
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+
+      - name: Install the Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          profile: minimal
+          target: wasm32-unknown-unknown
+          override: true
+
+      - name: Install power tools
+        uses: taiki-e/install-action@cargo-hack
+
+      - name: Download the Cargo lockfiles
+        uses: actions/download-artifact@v4
+        with:
+          name: Cargo.lock
+
+      - name: Rename ${{ matrix.lock }} to Cargo.lock
+        run: mv ${{ matrix.lock }} Cargo.lock
+        if: ${{ matrix.lock != 'Cargo.lock' }}
+
+      - name: Check the powerset
+        run: |
+          cargo hack check --all \
+            --feature-powerset --keep-going
+
+  fmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+
+      - name: Install the Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          components: rustfmt
+          override: true
+
+      - name: Check the code formatting
+        run: cargo fmt --all -- --check
+
+  clippy:
+    name: Clippy
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        rust: ["1.82", stable]
+        lock: ["Cargo.lock", "Cargo.lock.min"]
+    runs-on: ${{ matrix.os }}
+    needs: lock
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+
+      - name: Install the Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          profile: minimal
+          target: wasm32-unknown-unknown
+          components: clippy
+          override: true
+
+      - name: Install power tools
+        uses: taiki-e/install-action@cargo-hack
+
+      - name: Download the Cargo lockfiles
+        uses: actions/download-artifact@v4
+        with:
+          name: Cargo.lock
+
+      - name: Rename ${{ matrix.lock }} to Cargo.lock
+        run: mv ${{ matrix.lock }} Cargo.lock
+        if: ${{ matrix.lock != 'Cargo.lock' }}
+
+      - name: Check the code style powerset
+        if: ${{ matrix.rust == 'stable' && matrix.lock == 'Cargo.lock' }}
+        run: |
+          cargo hack clippy --all \
+            --feature-powerset --keep-going \
+            -- -D warnings
+
+      - name: Check the code style powerset
+        if: ${{ matrix.rust != 'stable' || matrix.lock != 'Cargo.lock' }}
+        run: |
+          cargo hack clippy --all \
+            --feature-powerset --keep-going \
+            -- -D warnings -A unknown-lints -A clippy::multiple-crate-versions
+
+      - name: Check the code style powerset on wasm32-unknown-unknown
+        if: ${{ matrix.rust == 'stable' && matrix.lock == 'Cargo.lock' }}
+        run: |
+          cargo hack clippy --all \
+            --exclude check-wit-deps \
+            --exclude wasi-sandboxed-builder \
+            --feature-powerset --keep-going \
+            --target wasm32-unknown-unknown \
+            -- -D warnings
+
+      - name: Check the code style powerset on wasm32-unknown-unknown
+        if: ${{ matrix.rust != 'stable' || matrix.lock != 'Cargo.lock' }}
+        run: |
+          cargo hack clippy --all \
+            --exclude check-wit-deps \
+            --exclude wasi-sandboxed-builder \
+            --feature-powerset --keep-going \
+            --target wasm32-unknown-unknown \
+            -- -D warnings -A unknown-lints -A clippy::multiple-crate-versions

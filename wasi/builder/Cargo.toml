@@ -1,5 +1,5 @@
 [package]
-name = "virtual-wasi-build"
+name = "wasi-sandboxed-component-builder"
 version = "0.2.2"
 edition = { workspace = true }
 authors = { workspace = true }
@@ -14,11 +14,11 @@ scratch = { workspace = true }
 wit-component = { workspace = true }
 
 # list of all WASI components we build
-virtual-wasi-cli = { workspace = true }
-virtual-wasi-clocks = { workspace = true }
-virtual-wasi-filesystem = { workspace = true }
-virtual-wasi-io = { workspace = true }
-virtual-wasi-random = { workspace = true }
+wasi-sandboxed-cli = { workspace = true }
+wasi-sandboxed-clocks = { workspace = true }
+wasi-sandboxed-filesystem = { workspace = true }
+wasi-sandboxed-io = { workspace = true }
+wasi-sandboxed-random = { workspace = true }
 
 [lints]
 workspace = true

@@ -1,5 +1,5 @@
 [package]
-name = "virtual-wasi-io"
+name = "wasi-sandboxed-io"
 version = "0.2.2"
 edition = { workspace = true }
 authors = { workspace = true }

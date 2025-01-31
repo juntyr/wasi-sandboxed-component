@@ -50,10 +50,7 @@ pub fn check_is_locked(wit: impl AsRef<Path>) -> Result<()> {
         .sort_by_file_name()
         .into_iter();
 
-    let (mut old_dep, mut new_dep) = (
-        old_deps.next().transpose()?,
-        new_deps.next().transpose()?,
-    );
+    let (mut old_dep, mut new_dep) = (old_deps.next().transpose()?, new_deps.next().transpose()?);
 
     loop {
         // skip indirect dependency deps files, lock files, and directories,
@@ -61,13 +58,13 @@ pub fn check_is_locked(wit: impl AsRef<Path>) -> Result<()> {
         let skip = |dep: &Option<DirEntry>| match dep {
             Some(dep) if dep.path().ends_with("deps") && dep.file_type().is_dir() => {
                 Some(Skip::Directory)
-            },
+            }
             Some(dep)
                 if (dep.path().ends_with("deps.toml") && dep.file_type().is_file())
                     || (dep.path().ends_with("deps.lock") && dep.file_type().is_file()) =>
             {
                 Some(Skip::File)
-            },
+            }
             _ => None,
         };
 
@@ -95,22 +92,18 @@ pub fn check_is_locked(wit: impl AsRef<Path>) -> Result<()> {
                     "{} is extraneous in deps",
                     extra.path().display()
                 ))
-            },
+            }
             (None, Some(missing)) => {
                 return Err(anyhow::anyhow!(
                     "{} is missing from deps",
                     missing.path().display()
                 ))
-            },
+            }
         };
 
         // strip the file path prefixes to make them comparable
-        let old_dep_path = some_old_dep
-            .path()
-            .strip_prefix(&old_wit)?;
-        let new_dep_path = some_new_dep
-            .path()
-            .strip_prefix(&new_wit)?;
+        let old_dep_path = some_old_dep.path().strip_prefix(&old_wit)?;
+        let new_dep_path = some_new_dep.path().strip_prefix(&new_wit)?;
 
         // check that the next file path and type match
         if old_dep_path != new_dep_path {

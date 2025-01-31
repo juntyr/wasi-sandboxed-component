@@ -1,5 +1,5 @@
 [package]
-name = "virtual-wasi-filesystem"
+name = "wasi-sandboxed-filesystem"
 version = "0.2.2"
 edition = { workspace = true }
 authors = { workspace = true }

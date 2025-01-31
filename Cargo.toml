@@ -28,7 +28,7 @@ wasi-sandboxed-io = { path = "wasi/io", default-features = false }
 wasi-sandboxed-random = { path = "wasi/random", default-features = false }
 
 # crates.io third-party dependencies
-anyhow = { version = "1.0", default-features = false }
+anyhow = { version = "1.0.58", default-features = false }
 rand_core = { version = "0.9", default-features = false }
 rand_pcg = { version = "0.9", default-features = false }
 scratch = { version = "1.0", default-features = false }

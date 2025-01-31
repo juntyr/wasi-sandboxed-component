@@ -67,6 +67,7 @@ jobs:
           toolchain: ${{ matrix.rust }}
           profile: minimal
           target: wasm32-unknown-unknown
+          components: rust-src
           override: true
 
       - name: Install power tools
@@ -127,7 +128,7 @@ jobs:
           toolchain: ${{ matrix.rust }}
           profile: minimal
           target: wasm32-unknown-unknown
-          components: clippy
+          components: clippy, rust-src
           override: true
 
       - name: Install power tools

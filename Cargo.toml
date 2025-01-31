@@ -2,15 +2,19 @@
 resolver = "2"
 members = [
     "wasi/builder",
+    # "wasi/provider",
+
     "wasi/cli",
     "wasi/clocks",
     "wasi/filesystem",
     "wasi/io",
     "wasi/random",
+
     "utils/check-wit-deps",
 ]
 
 [workspace.package]
+version = "0.2.2"
 edition = "2021"
 authors = ["Juniper Tyree <juniper.tyree@helsinki.fi>"]
 repository = "https://github.com/juntyr/wasi-sandboxed-component"

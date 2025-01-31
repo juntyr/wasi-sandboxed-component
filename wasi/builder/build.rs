@@ -17,6 +17,9 @@ fn main() -> io::Result<()> {
         .or_else(|| std::env::var_os("RUSTC_WORKSPACE_WRAPPER"))
         .is_some_and(|wrapper| Path::new(&wrapper).ends_with("clippy-driver"));
 
+    let provider_dir = std::env::var_os("WASI_SANDBOXED_COMPONENT_PROVIDER").map(PathBuf::from);
+    println!("cargo::rerun-if-env-changed=WASI_SANDBOXED_COMPONENT_PROVIDER");
+
     let scratch_dir = scratch::path(concat!(
         env!("CARGO_PKG_NAME"),
         "-",
@@ -55,7 +58,15 @@ fn main() -> io::Result<()> {
         } else {
             let wasm = build_wasm_module(&target_dir, crate_name)?;
             add_change_dependencies(&wasm)?;
-            create_new_component(&wasm)?
+            let wasm = create_new_component(&wasm)?;
+            if let Some(provider_dir) = &provider_dir {
+                fs::copy(
+                    &wasm,
+                    wasm.file_name()
+                        .map_or(provider_dir.clone(), |name| provider_dir.join(name)),
+                )?;
+            }
+            wasm
         };
 
         writeln!(

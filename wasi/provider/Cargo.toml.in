@@ -1,0 +1,17 @@
+[package]
+name = "wasi-sandboxed-component-provider"
+version = { workspace = true }
+edition = { workspace = true }
+authors = { workspace = true }
+repository = { workspace = true }
+license = { workspace = true }
+
+# smaller than the workspace version as we only `include_bytes!`
+rust-version = "1.60.0"
+
+description = "Embedded wasi-sandboxed-component binaries"
+categories = ["wasm", "api-bindings"]
+keywords = ["webassembly", "wasm", "wasi", "component", "sandboxed"]
+
+[lints]
+workspace = true

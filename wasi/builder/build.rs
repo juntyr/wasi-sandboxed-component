@@ -15,9 +15,7 @@ fn main() -> io::Result<()> {
     //  since `clippy` pollutes the `RUSTFLAGS` between rebuilds
     let is_clippy = std::env::var_os("RUSTC_WRAPPER")
         .or_else(|| std::env::var_os("RUSTC_WORKSPACE_WRAPPER"))
-        .map_or(false, |wrapper| {
-            Path::new(&wrapper).ends_with("clippy-driver")
-        });
+        .is_some_and(|wrapper| Path::new(&wrapper).ends_with("clippy-driver"));
 
     let scratch_dir = scratch::path(concat!(
         env!("CARGO_PKG_NAME"),

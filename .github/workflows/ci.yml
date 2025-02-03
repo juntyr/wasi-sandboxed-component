@@ -108,6 +108,8 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
           profile: minimal
+          target: wasm32-unknown-unknown
+          components: rust-src
           override: true
 
       - name: Install power tools

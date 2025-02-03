@@ -87,6 +87,46 @@ jobs:
           cargo hack check --all \
             --feature-powerset --keep-going
 
+  test:
+    name: Test Suite
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        rust: [stable]
+        lock: ["Cargo.lock", "Cargo.lock.min"]
+    runs-on: ${{ matrix.os }}
+    needs: lock
+
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Install the Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          profile: minimal
+          override: true
+
+      - name: Install power tools
+        uses: taiki-e/install-action@cargo-hack
+
+      - name: Download the Cargo lockfiles
+        uses: actions/download-artifact@v4
+        with:
+          name: Cargo.lock
+
+      - name: Rename ${{ matrix.lock }} to Cargo.lock
+        run: mv ${{ matrix.lock }} Cargo.lock
+        if: ${{ matrix.lock != 'Cargo.lock' }}
+
+      - name: Run the test-suite powerset
+        run: |
+          cargo hack test --workspace \
+            --no-fail-fast --feature-powerset --keep-going
+
   fmt:
     name: Rustfmt
     runs-on: ubuntu-latest

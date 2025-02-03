@@ -1,4 +1,4 @@
-package wasi-sandboxed:io@0.2.2;
+package wasi-sandboxed:io@0.2.3;
 
 interface stdio {
   write-stdout: func(contents: list<u8>);
@@ -10,9 +10,9 @@ interface stdio {
 
 world exports {
   import stdio;
-  export wasi:null/io@0.2.2;
+  export wasi:null/io@0.2.3;
 
-  export wasi:io/error@0.2.2;
-  export wasi:io/poll@0.2.2;
-  export wasi:io/streams@0.2.2;
+  export wasi:io/error@0.2.3;
+  export wasi:io/poll@0.2.3;
+  export wasi:io/streams@0.2.3;
 }

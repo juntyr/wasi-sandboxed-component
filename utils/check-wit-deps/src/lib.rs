@@ -5,7 +5,7 @@ use std::{
     path::Path,
 };
 
-use tempdir::TempDir;
+use tempfile::TempDir;
 use walkdir::{DirEntry, WalkDir};
 
 pub use anyhow::Result;
@@ -18,7 +18,7 @@ pub fn check_is_locked(wit: impl AsRef<Path>) -> Result<()> {
     let deps_file = fs::read_to_string(wit.join("deps.toml"))?;
     let deps_lock = fs::read_to_string(wit.join("deps.lock"))?;
 
-    let deps = TempDir::new("deps")?;
+    let deps = TempDir::with_prefix("deps")?;
 
     let lock = wit_deps::lock(
         Some(&wit),

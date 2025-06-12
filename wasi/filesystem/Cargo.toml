@@ -7,7 +7,15 @@ repository = { workspace = true }
 license = { workspace = true }
 rust-version = { workspace = true }
 
+[features]
+merged = [
+    "dep:wasi-sandboxed-clocks", "wasi-sandboxed-clocks/merged",
+    "dep:wasi-sandboxed-io", "wasi-sandboxed-io/merged",
+]
+
 [dependencies]
+wasi-sandboxed-clocks = { workspace = true, optional = true }
+wasi-sandboxed-io = { workspace = true, optional = true }
 wit-bindgen = { workspace = true, features = ["macros", "realloc"] }
 
 [dev-dependencies]

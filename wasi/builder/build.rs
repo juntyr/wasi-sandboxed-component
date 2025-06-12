@@ -11,12 +11,6 @@ use ::{
 };
 
 fn main() -> io::Result<()> {
-    // Check for `clippy` and skip compilation in that case
-    //  since `clippy` pollutes the `RUSTFLAGS` between rebuilds
-    let is_clippy = std::env::var_os("RUSTC_WRAPPER")
-        .or_else(|| std::env::var_os("RUSTC_WORKSPACE_WRAPPER"))
-        .is_some_and(|wrapper| Path::new(&wrapper).ends_with("clippy-driver"));
-
     let provider_dir = std::env::var_os("WASI_SANDBOXED_COMPONENT_PROVIDER").map(PathBuf::from);
     println!("cargo::rerun-if-env-changed=WASI_SANDBOXED_COMPONENT_PROVIDER");
 
@@ -53,21 +47,7 @@ fn main() -> io::Result<()> {
     ] {
         let const_name = crate_name.to_uppercase().replace('-', "_");
 
-        let wasm = if is_clippy {
-            PathBuf::from("/dev/null")
-        } else {
-            let wasm = build_wasm_module(&target_dir, crate_name)?;
-            add_change_dependencies(&wasm)?;
-            let wasm = create_new_component(&wasm)?;
-            if let Some(provider_dir) = &provider_dir {
-                fs::copy(
-                    &wasm,
-                    wasm.file_name()
-                        .map_or(provider_dir.clone(), |name| provider_dir.join(name)),
-                )?;
-            }
-            wasm
-        };
+        let wasm = build_wasi_component(&target_dir, crate_name, provider_dir.as_deref())?;
 
         writeln!(
             &mut components,
@@ -85,6 +65,16 @@ fn main() -> io::Result<()> {
             .map(|(component_name, const_name)| format!("({component_name:?}, {const_name})"))
             .collect::<Vec<_>>()
             .join(", "),
+    )?;
+
+    let merged_wasm = build_wasi_component(
+        &target_dir,
+        "wasi-sandboxed-merged",
+        provider_dir.as_deref(),
+    )?;
+    writeln!(
+        &mut components,
+        "pub const WASI_SANDBOXED_MERGED: &[u8] = include_bytes!({merged_wasm:?});"
     )?;
 
     components.flush()?;
@@ -205,4 +195,35 @@ fn create_new_component(wasm: &Path) -> io::Result<PathBuf> {
     fs::write(&wasm_component, wasm)?;
 
     Ok(wasm_component)
+}
+
+fn build_wasi_component(
+    target_dir: &Path,
+    crate_name: &str,
+    provider_dir: Option<&Path>,
+) -> io::Result<PathBuf> {
+    // Check for `clippy` and skip compilation in that case
+    //  since `clippy` pollutes the `RUSTFLAGS` between rebuilds
+    let is_clippy = std::env::var_os("RUSTC_WRAPPER")
+        .or_else(|| std::env::var_os("RUSTC_WORKSPACE_WRAPPER"))
+        .is_some_and(|wrapper| Path::new(&wrapper).ends_with("clippy-driver"));
+
+    if is_clippy {
+        return Ok(PathBuf::from("/dev/null"));
+    }
+
+    let wasm = build_wasm_module(target_dir, crate_name)?;
+    add_change_dependencies(&wasm)?;
+
+    let wasm = create_new_component(&wasm)?;
+
+    if let Some(provider_dir) = provider_dir {
+        fs::copy(
+            &wasm,
+            wasm.file_name()
+                .map_or(provider_dir.to_path_buf(), |name| provider_dir.join(name)),
+        )?;
+    }
+
+    Ok(wasm)
 }

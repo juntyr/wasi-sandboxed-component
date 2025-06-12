@@ -6,3 +6,8 @@ world exports {
   export wasi:clocks/monotonic-clock@0.2.3;
   export wasi:clocks/wall-clock@0.2.3;
 }
+
+world merged-exports {
+  export wasi:clocks/monotonic-clock@0.2.3;
+  export wasi:clocks/wall-clock@0.2.3;
+}

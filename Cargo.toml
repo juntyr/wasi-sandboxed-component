@@ -10,6 +10,8 @@ members = [
     "wasi/io",
     "wasi/random",
 
+    "wasi/merged",
+
     "utils/check-wit-deps",
 ]
 
@@ -29,6 +31,7 @@ wasi-sandboxed-cli = { path = "wasi/cli", default-features = false }
 wasi-sandboxed-clocks = { path = "wasi/clocks", default-features = false }
 wasi-sandboxed-filesystem = { path = "wasi/filesystem", default-features = false }
 wasi-sandboxed-io = { path = "wasi/io", default-features = false }
+wasi-sandboxed-merged = { path = "wasi/merged", default-features = false }
 wasi-sandboxed-random = { path = "wasi/random", default-features = false }
 
 # crates.io third-party dependencies
@@ -36,11 +39,11 @@ anyhow = { version = "1.0.72", default-features = false }
 rand_core = { version = "0.9", default-features = false }
 rand_pcg = { version = "0.9", default-features = false }
 scratch = { version = "1.0", default-features = false }
-tempdir = { version = "0.3.7", default-features = false }
+tempfile = { version = "3.20", default-features = false }
 tokio = { version = "1.40", default-features = false }
 walkdir = { version = "2.5", default-features = false }
-wit-bindgen = { version = "0.38", default-features = false }
-wit-component = { version = "0.224", default-features = false }
+wit-bindgen = { version = "0.42", default-features = false }
+wit-component = { version = "0.234", default-features = false }
 wit-deps = { version = "0.5", default-features = false }
 
 [workspace.lints.rust]

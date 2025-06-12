@@ -20,5 +20,9 @@ wasi-sandboxed-filesystem = { workspace = true }
 wasi-sandboxed-io = { workspace = true }
 wasi-sandboxed-random = { workspace = true }
 
+# we cannot depend on the merged crate directly since feature unification
+#  would interfere with building the non-merged WASI components
+# wasi-sandboxed-merged = { workspace = true }
+
 [lints]
 workspace = true

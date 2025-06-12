@@ -2,15 +2,22 @@
 
 use std::sync::atomic::{AtomicU64, Ordering};
 
-use crate::bindings::{
-    exports::wasi::clocks::{
-        monotonic_clock::{Duration, Guest as WasiClocksMonotonicClock, Instant},
-        wall_clock::{Datetime, Guest as WasiClocksWallClock},
-    },
-    wasi::{io::poll::Pollable, null::io::ready_pollable},
+use crate::bindings::exports::wasi::clocks::{
+    monotonic_clock::{Duration, Guest as WasiClocksMonotonicClock, Instant},
+    wall_clock::{Datetime, Guest as WasiClocksWallClock},
 };
+#[cfg(not(feature = "merged"))]
+use crate::bindings::wasi::{io::poll::Pollable, null::io::ready_pollable};
+#[cfg(feature = "merged")]
+use wasi_sandboxed_io::exports::poll::Pollable;
+
+#[cfg(feature = "merged")]
+fn ready_pollable() -> Pollable {
+    wasi_sandboxed_io::poll::VirtPollable::ready()
+}
 
 mod bindings {
+    #[cfg(not(feature = "merged"))]
     wit_bindgen::generate!({
         world: "wasi-sandboxed:clocks/exports@0.2.3",
         with: {
@@ -23,6 +30,17 @@ mod bindings {
             "wasi:io/streams@0.2.3": generate,
 
             "wasi:null/io@0.2.3": generate,
+        },
+    });
+    #[cfg(feature = "merged")]
+    wit_bindgen::generate!({
+        world: "wasi-sandboxed:clocks/merged-exports@0.2.3",
+        with: {
+            "wasi:clocks/monotonic-clock@0.2.3": generate,
+            "wasi:clocks/wall-clock@0.2.3": generate,
+
+            // direct dependencies
+            "wasi:io/poll@0.2.3": wasi_sandboxed_io::exports::poll,
         },
     });
 }
@@ -80,6 +98,11 @@ impl WasiClocksWallClock for VirtClock {
             nanoseconds: 1,
         }
     }
+}
+
+#[cfg(feature = "merged")]
+pub mod exports {
+    pub use crate::bindings::exports::wasi::clocks::*;
 }
 
 #[cfg(test)]

@@ -1,0 +1,18 @@
+[package]
+name = "wasi-sandboxed-merged"
+version = { workspace = true }
+edition = { workspace = true }
+authors = { workspace = true }
+repository = { workspace = true }
+license = { workspace = true }
+rust-version = { workspace = true }
+
+[dependencies]
+wasi-sandboxed-cli = { workspace = true, features = ["merged"] }
+wasi-sandboxed-clocks = { workspace = true, features = ["merged"] }
+wasi-sandboxed-filesystem = { workspace = true, features = ["merged"] }
+wasi-sandboxed-io = { workspace = true, features = ["merged"] }
+wasi-sandboxed-random = { workspace = true, features = ["merged"] }
+
+[lints]
+workspace = true

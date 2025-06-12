@@ -1,22 +1,27 @@
 #![cfg_attr(not(test), no_main)]
 
-use crate::bindings::{
-    exports::wasi::filesystem::{
-        preopens::Guest as WasiFilesystemPreopens,
-        types::{
-            Advice, Descriptor, DescriptorBorrow, DescriptorFlags, DescriptorStat, DescriptorType,
-            DirectoryEntry, DirectoryEntryStream, ErrorCode, Filesize,
-            Guest as WasiFilesystemTypes, GuestDescriptor, GuestDirectoryEntryStream,
-            MetadataHashValue, NewTimestamp, OpenFlags, PathFlags,
-        },
+use crate::bindings::exports::wasi::filesystem::{
+    preopens::Guest as WasiFilesystemPreopens,
+    types::{
+        Advice, Descriptor, DescriptorBorrow, DescriptorFlags, DescriptorStat, DescriptorType,
+        DirectoryEntry, DirectoryEntryStream, ErrorCode, Filesize, Guest as WasiFilesystemTypes,
+        GuestDescriptor, GuestDirectoryEntryStream, MetadataHashValue, NewTimestamp, OpenFlags,
+        PathFlags,
     },
-    wasi::io::{
-        error::Error,
-        streams::{InputStream, OutputStream},
-    },
+};
+#[cfg(not(feature = "merged"))]
+use crate::bindings::wasi::io::{
+    error::Error,
+    streams::{InputStream, OutputStream},
+};
+#[cfg(feature = "merged")]
+use wasi_sandboxed_io::exports::{
+    error::Error,
+    streams::{InputStream, OutputStream},
 };
 
 mod bindings {
+    #[cfg(not(feature = "merged"))]
     wit_bindgen::generate!({
         world: "wasi-sandboxed:filesystem/exports@0.2.3",
         with: {
@@ -29,6 +34,21 @@ mod bindings {
             "wasi:io/streams@0.2.3": generate,
 
             "wasi:clocks/wall-clock@0.2.3": generate,
+        },
+    });
+    #[cfg(feature = "merged")]
+    wit_bindgen::generate!({
+        world: "wasi-sandboxed:filesystem/exports@0.2.3",
+        with: {
+            "wasi:filesystem/preopens@0.2.3": generate,
+            "wasi:filesystem/types@0.2.3": generate,
+
+            // direct dependencies
+            "wasi:io/error@0.2.3": wasi_sandboxed_io::exports::error,
+            "wasi:io/poll@0.2.3": wasi_sandboxed_io::exports::poll,
+            "wasi:io/streams@0.2.3": wasi_sandboxed_io::exports::streams,
+
+            "wasi:clocks/wall-clock@0.2.3": wasi_sandboxed_clocks::exports::wall_clock,
         },
     });
 }
@@ -212,6 +232,11 @@ impl GuestDirectoryEntryStream for VirtDirectoryEntryStream {
     fn read_directory_entry(&self) -> Result<Option<DirectoryEntry>, ErrorCode> {
         match *self {}
     }
+}
+
+#[cfg(feature = "merged")]
+pub mod exports {
+    pub use crate::bindings::exports::wasi::filesystem::*;
 }
 
 #[cfg(test)]

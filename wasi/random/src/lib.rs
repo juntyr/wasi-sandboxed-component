@@ -88,6 +88,11 @@ impl WasiRandom for VirtRandom {
     }
 }
 
+#[cfg(feature = "merged")]
+pub mod exports {
+    pub use crate::bindings::exports::wasi::random::*;
+}
+
 #[cfg(test)]
 mod tests {
     #[test]

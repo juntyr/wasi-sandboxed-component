@@ -23,11 +23,11 @@ fn main() -> io::Result<()> {
 
     let components_path = scratch_dir.join("components.rs");
 
-    eprintln!("scratch_dir={scratch_dir:?}");
-    eprintln!("target_dir={target_dir:?}");
-    eprintln!("components_path={components_path:?}");
+    eprintln!("scratch_dir={}", scratch_dir.display());
+    eprintln!("target_dir={}", target_dir.display());
+    eprintln!("components_path={}", components_path.display());
 
-    eprintln!("creating {target_dir:?}");
+    eprintln!("creating {}", target_dir.display());
     fs::create_dir_all(&target_dir)?;
 
     let mut components = fs::OpenOptions::new()
@@ -51,7 +51,8 @@ fn main() -> io::Result<()> {
 
         writeln!(
             &mut components,
-            "pub const {const_name}: &[u8] = include_bytes!({wasm:?});"
+            "pub const {const_name}: &[u8] = include_bytes!(\"{wasm}\");",
+            wasm = wasm.display(),
         )?;
 
         all_component_const_names.push((component_name, const_name));
@@ -74,7 +75,8 @@ fn main() -> io::Result<()> {
     )?;
     writeln!(
         &mut components,
-        "pub const WASI_SANDBOXED_MERGED: &[u8] = include_bytes!({merged_wasm:?});"
+        "pub const WASI_SANDBOXED_MERGED: &[u8] = include_bytes!(\"{merged_wasm}\");",
+        merged_wasm = merged_wasm.display(),
     )?;
 
     components.flush()?;
@@ -90,7 +92,7 @@ fn configure_cargo_cmd() -> io::Result<Command> {
             io::Error::new(io::ErrorKind::NotFound, "missing env variable `CARGO`")
         })?);
 
-    eprintln!("cargo={cargo:?}");
+    eprintln!("cargo={}", cargo.display());
 
     // Special-case for compilation inside Pyodide, where we need to explicitly
     //  circumvent the cross-compilation wrapper
@@ -134,10 +136,7 @@ fn build_wasm_module(target_dir: &Path, crate_name: &str) -> io::Result<PathBuf>
 
     let status = cmd.status()?;
     if !status.success() {
-        return Err(io::Error::new(
-            io::ErrorKind::Other,
-            format!("cargo exited with code {status}"),
-        ));
+        return Err(io::Error::other(format!("cargo exited with code {status}")));
     }
 
     Ok(target_dir
@@ -150,7 +149,7 @@ fn build_wasm_module(target_dir: &Path, crate_name: &str) -> io::Result<PathBuf>
 fn add_change_dependencies(wasm: &Path) -> io::Result<()> {
     let dep_file = wasm.with_extension("d");
 
-    eprintln!("reading {dep_file:?}");
+    eprintln!("reading {}", dep_file.display());
     let deps = fs::read_to_string(dep_file)?;
 
     let Some((_, deps)) = deps.split_once(':') else {
@@ -170,28 +169,26 @@ fn add_change_dependencies(wasm: &Path) -> io::Result<()> {
 fn create_new_component(wasm: &Path) -> io::Result<PathBuf> {
     let wasm_component = wasm.with_extension("component.wasm");
 
-    eprintln!("reading from {wasm:?}");
+    eprintln!("reading from {}", wasm.display());
     let wasm = fs::read(wasm)?;
 
     let mut encoder = wit_component::ComponentEncoder::default()
         .module(&wasm)
         .map_err(|err| {
-            io::Error::new(
-                io::ErrorKind::Other,
-                // FIXME: better error reporting in the build script
-                format!("wit_component::ComponentEncoder::module failed: {err:#}"),
-            )
+            // FIXME: better error reporting in the build script
+            io::Error::other(format!(
+                "wit_component::ComponentEncoder::module failed: {err:#}"
+            ))
         })?;
 
     let wasm = encoder.encode().map_err(|err| {
-        io::Error::new(
-            io::ErrorKind::Other,
-            // FIXME: better error reporting in the build script
-            format!("wit_component::ComponentEncoder::encode failed: {err:#}"),
-        )
+        // FIXME: better error reporting in the build script
+        io::Error::other(format!(
+            "wit_component::ComponentEncoder::encode failed: {err:#}"
+        ))
     })?;
 
-    eprintln!("writing to {wasm_component:?}");
+    eprintln!("writing to {}", wasm_component.display());
     fs::write(&wasm_component, wasm)?;
 
     Ok(wasm_component)

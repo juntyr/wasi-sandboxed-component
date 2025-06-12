@@ -21,7 +21,7 @@ edition = "2021"
 authors = ["Juniper Tyree <juniper.tyree@helsinki.fi>"]
 repository = "https://github.com/juntyr/wasi-sandboxed-component"
 license = "MPL-2.0"
-rust-version = "1.82"
+rust-version = "1.83"
 
 [workspace.dependencies]
 # workspace-internal crates

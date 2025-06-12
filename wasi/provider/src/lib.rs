@@ -16,3 +16,6 @@ pub const ALL_COMPONENTS: &[(&str, &[u8])] = &[
     ("wasi-sandboxed:io", WASI_SANDBOXED_IO),
     ("wasi-sandboxed:random", WASI_SANDBOXED_RANDOM),
 ];
+
+pub const MERGED_COMPONENT: &[u8] =
+    include_bytes!("../artefacts/wasi_sandboxed_merged.component.wasm");

@@ -8,11 +8,12 @@ license = { workspace = true }
 rust-version = { workspace = true }
 
 [dependencies]
-wasi-sandboxed-cli = { workspace = true, features = ["merged"] }
-wasi-sandboxed-clocks = { workspace = true, features = ["merged"] }
-wasi-sandboxed-filesystem = { workspace = true, features = ["merged"] }
-wasi-sandboxed-io = { workspace = true, features = ["merged"] }
-wasi-sandboxed-random = { workspace = true, features = ["merged"] }
+rand_core = { workspace = true }
+rand_pcg = { workspace = true }
+wit-bindgen = { workspace = true, features = ["macros", "realloc"] }
+
+[dev-dependencies]
+check-wit-deps = { workspace = true }
 
 [lints]
 workspace = true

@@ -1,4 +1,5 @@
-use crate::{bindings::exports::wasi::cli::environment::Guest as WasiCliEnvironment, VirtCli};
+use super::VirtCli;
+use crate::bindings::exports::wasi::cli::environment::Guest as WasiCliEnvironment;
 
 impl WasiCliEnvironment for VirtCli {
     fn get_environment() -> Vec<(String, String)> {

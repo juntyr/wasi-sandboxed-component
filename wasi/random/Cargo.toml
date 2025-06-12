@@ -7,9 +7,6 @@ repository = { workspace = true }
 license = { workspace = true }
 rust-version = { workspace = true }
 
-[features]
-merged = []
-
 [dependencies]
 rand_core = { workspace = true }
 rand_pcg = { workspace = true }

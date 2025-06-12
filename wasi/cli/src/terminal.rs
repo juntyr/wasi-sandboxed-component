@@ -1,12 +1,10 @@
-use crate::{
-    bindings::exports::wasi::cli::{
-        terminal_input::{Guest as WasiCliTerminalInput, GuestTerminalInput, TerminalInput},
-        terminal_output::{Guest as WasiCliTerminalOutput, GuestTerminalOutput, TerminalOutput},
-        terminal_stderr::Guest as WasiCliTerminalStderr,
-        terminal_stdin::Guest as WasiCliTerminalStdin,
-        terminal_stdout::Guest as WasiCliTerminalStdout,
-    },
-    VirtCli,
+use super::VirtCli;
+use crate::bindings::exports::wasi::cli::{
+    terminal_input::{Guest as WasiCliTerminalInput, GuestTerminalInput, TerminalInput},
+    terminal_output::{Guest as WasiCliTerminalOutput, GuestTerminalOutput, TerminalOutput},
+    terminal_stderr::Guest as WasiCliTerminalStderr,
+    terminal_stdin::Guest as WasiCliTerminalStdin,
+    terminal_stdout::Guest as WasiCliTerminalStdout,
 };
 
 impl WasiCliTerminalInput for VirtCli {

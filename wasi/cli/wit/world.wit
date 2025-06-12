@@ -14,16 +14,3 @@ world exports {
   export wasi:cli/terminal-stdout@0.2.3;
   export wasi:cli/terminal-stderr@0.2.3;
 }
-
-world merged-exports {
-  export wasi:cli/environment@0.2.3;
-  export wasi:cli/exit@0.2.3;
-  export wasi:cli/stdin@0.2.3;
-  export wasi:cli/stdout@0.2.3;
-  export wasi:cli/stderr@0.2.3;
-  export wasi:cli/terminal-input@0.2.3;
-  export wasi:cli/terminal-output@0.2.3;
-  export wasi:cli/terminal-stdin@0.2.3;
-  export wasi:cli/terminal-stdout@0.2.3;
-  export wasi:cli/terminal-stderr@0.2.3;
-}

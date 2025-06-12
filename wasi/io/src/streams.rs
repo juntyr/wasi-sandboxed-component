@@ -1,17 +1,15 @@
-use crate::{
-    bindings::{
-        exports::wasi::io::{
-            poll::Pollable,
-            streams::{
-                Guest as WasiIoStreams, GuestInputStream, GuestOutputStream, InputStream,
-                InputStreamBorrow, OutputStream, StreamError,
-            },
+use crate::bindings::{
+    exports::wasi::io::{
+        poll::Pollable,
+        streams::{
+            Guest as WasiIoStreams, GuestInputStream, GuestOutputStream, InputStream,
+            InputStreamBorrow, OutputStream, StreamError,
         },
-        wasi_sandboxed::io::stdio::{flush_stderr, flush_stdout, write_stderr, write_stdout},
     },
-    poll::VirtPollable,
-    VirtIO,
+    wasi_sandboxed::io::stdio::{flush_stderr, flush_stdout, write_stderr, write_stdout},
 };
+
+use super::{poll::VirtPollable, VirtIO};
 
 impl WasiIoStreams for VirtIO {
     type InputStream = VirtInputStream;

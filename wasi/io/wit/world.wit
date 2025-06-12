@@ -16,11 +16,3 @@ world exports {
   export wasi:io/poll@0.2.3;
   export wasi:io/streams@0.2.3;
 }
-
-world merged-exports {
-  import stdio;
-
-  export wasi:io/error@0.2.3;
-  export wasi:io/poll@0.2.3;
-  export wasi:io/streams@0.2.3;
-}

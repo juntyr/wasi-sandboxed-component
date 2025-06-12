@@ -1,7 +1,6 @@
-use crate::{
-    bindings::exports::wasi::io::error::{Guest as WasiIoError, GuestError},
-    VirtIO,
-};
+use crate::bindings::exports::wasi::io::error::{Guest as WasiIoError, GuestError};
+
+use super::VirtIO;
 
 impl WasiIoError for VirtIO {
     type Error = VirtError;

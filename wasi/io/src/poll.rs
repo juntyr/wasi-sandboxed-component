@@ -1,9 +1,8 @@
-use crate::{
-    bindings::exports::wasi::io::poll::{
-        Guest as WasiIoPoll, GuestPollable, Pollable, PollableBorrow,
-    },
-    VirtIO,
+use crate::bindings::exports::wasi::io::poll::{
+    Guest as WasiIoPoll, GuestPollable, Pollable, PollableBorrow,
 };
+
+use super::VirtIO;
 
 impl WasiIoPoll for VirtIO {
     type Pollable = VirtPollable;

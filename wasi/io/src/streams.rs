@@ -98,7 +98,7 @@ impl GuestOutputStream for VirtOutputStream {
     fn write_zeroes(&self, mut len: u64) -> Result<(), StreamError> {
         if matches!(self, Self::Sink) {
             return Ok(());
-        };
+        }
 
         while let (Err(_), Ok(max)) = (usize::try_from(len), u64::try_from(usize::MAX)) {
             self.write(vec![0_u8; usize::MAX])?;

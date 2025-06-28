@@ -14,13 +14,13 @@ pub mod streams;
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "wasi-sandboxed:io/exports@0.2.3",
+        world: "wasi-sandboxed:io/exports@0.2.4",
         with: {
-            "wasi:io/error@0.2.3": generate,
-            "wasi:io/poll@0.2.3": generate,
-            "wasi:io/streams@0.2.3": generate,
+            "wasi:io/error@0.2.4": generate,
+            "wasi:io/poll@0.2.4": generate,
+            "wasi:io/streams@0.2.4": generate,
 
-            "wasi:null/io@0.2.3": generate,
+            "wasi:null/io@0.2.4": generate,
         },
     });
 }

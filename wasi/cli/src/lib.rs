@@ -7,25 +7,25 @@ pub mod terminal;
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "wasi-sandboxed:cli/exports@0.2.3",
+        world: "wasi-sandboxed:cli/exports@0.2.4",
         with: {
-            "wasi:cli/environment@0.2.3": generate,
-            "wasi:cli/exit@0.2.3": generate,
-            "wasi:cli/stderr@0.2.3": generate,
-            "wasi:cli/stdin@0.2.3": generate,
-            "wasi:cli/stdout@0.2.3": generate,
-            "wasi:cli/terminal-input@0.2.3": generate,
-            "wasi:cli/terminal-output@0.2.3": generate,
-            "wasi:cli/terminal-stderr@0.2.3": generate,
-            "wasi:cli/terminal-stdin@0.2.3": generate,
-            "wasi:cli/terminal-stdout@0.2.3": generate,
+            "wasi:cli/environment@0.2.4": generate,
+            "wasi:cli/exit@0.2.4": generate,
+            "wasi:cli/stderr@0.2.4": generate,
+            "wasi:cli/stdin@0.2.4": generate,
+            "wasi:cli/stdout@0.2.4": generate,
+            "wasi:cli/terminal-input@0.2.4": generate,
+            "wasi:cli/terminal-output@0.2.4": generate,
+            "wasi:cli/terminal-stderr@0.2.4": generate,
+            "wasi:cli/terminal-stdin@0.2.4": generate,
+            "wasi:cli/terminal-stdout@0.2.4": generate,
 
             // direct dependencies
-            "wasi:io/error@0.2.3": generate,
-            "wasi:io/poll@0.2.3": generate,
-            "wasi:io/streams@0.2.3": generate,
+            "wasi:io/error@0.2.4": generate,
+            "wasi:io/poll@0.2.4": generate,
+            "wasi:io/streams@0.2.4": generate,
 
-            "wasi:null/io@0.2.3": generate,
+            "wasi:null/io@0.2.4": generate,
         },
     });
 }

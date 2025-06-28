@@ -5,17 +5,17 @@ pub mod types;
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "wasi-sandboxed:filesystem/exports@0.2.3",
+        world: "wasi-sandboxed:filesystem/exports@0.2.4",
         with: {
-            "wasi:filesystem/preopens@0.2.3": generate,
-            "wasi:filesystem/types@0.2.3": generate,
+            "wasi:filesystem/preopens@0.2.4": generate,
+            "wasi:filesystem/types@0.2.4": generate,
 
             // direct dependencies
-            "wasi:io/error@0.2.3": generate,
-            "wasi:io/poll@0.2.3": generate,
-            "wasi:io/streams@0.2.3": generate,
+            "wasi:io/error@0.2.4": generate,
+            "wasi:io/poll@0.2.4": generate,
+            "wasi:io/streams@0.2.4": generate,
 
-            "wasi:clocks/wall-clock@0.2.3": generate,
+            "wasi:clocks/wall-clock@0.2.4": generate,
         },
     });
 }

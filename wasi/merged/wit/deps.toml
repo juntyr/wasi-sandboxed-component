@@ -1,6 +1,6 @@
-cli = { url = "https://github.com/WebAssembly/wasi-cli/archive/v0.2.3.tar.gz" }
-clocks = { url = "https://github.com/WebAssembly/wasi-clocks/archive/v0.2.3.tar.gz" }
-filesystem = { url = "https://github.com/WebAssembly/wasi-filesystem/archive/v0.2.3.tar.gz" }
-io = { url = "https://github.com/WebAssembly/wasi-io/archive/v0.2.3.tar.gz" }
-random = { url = "https://github.com/WebAssembly/wasi-random/archive/v0.2.3.tar.gz" }
-sockets = { url = "https://github.com/WebAssembly/wasi-sockets/archive/v0.2.3.tar.gz" }
+cli = { url = "https://github.com/WebAssembly/wasi-cli/archive/v0.2.4.tar.gz" }
+clocks = { url = "https://github.com/WebAssembly/wasi-clocks/archive/v0.2.4.tar.gz" }
+filesystem = { url = "https://github.com/WebAssembly/wasi-filesystem/archive/v0.2.4.tar.gz" }
+io = { url = "https://github.com/WebAssembly/wasi-io/archive/v0.2.4.tar.gz" }
+random = { url = "https://github.com/WebAssembly/wasi-random/archive/v0.2.4.tar.gz" }
+sockets = { url = "https://github.com/WebAssembly/wasi-sockets/archive/v0.2.4.tar.gz" }

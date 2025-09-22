@@ -5,17 +5,17 @@ pub mod wall_clock;
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "wasi-sandboxed:clocks/exports@0.2.4",
+        world: "wasi-sandboxed:clocks/exports@0.2.5",
         with: {
-            "wasi:clocks/monotonic-clock@0.2.4": generate,
-            "wasi:clocks/wall-clock@0.2.4": generate,
+            "wasi:clocks/monotonic-clock@0.2.5": generate,
+            "wasi:clocks/wall-clock@0.2.5": generate,
 
             // direct dependencies
-            "wasi:io/error@0.2.4": generate,
-            "wasi:io/poll@0.2.4": generate,
-            "wasi:io/streams@0.2.4": generate,
+            "wasi:io/error@0.2.5": generate,
+            "wasi:io/poll@0.2.5": generate,
+            "wasi:io/streams@0.2.5": generate,
 
-            "wasi:null/io@0.2.4": generate,
+            "wasi:null/io@0.2.5": generate,
         },
     });
 }

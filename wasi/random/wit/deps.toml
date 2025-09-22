@@ -1,1 +1,1 @@
-random = { url = "https://github.com/WebAssembly/wasi-random/archive/v0.2.4.tar.gz" }
+random = { url = "https://github.com/WebAssembly/wasi-random/archive/v0.2.5.tar.gz" }

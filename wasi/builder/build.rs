@@ -217,8 +217,10 @@ fn build_wasi_component(
     if let Some(provider_dir) = provider_dir {
         fs::copy(
             &wasm,
-            wasm.file_name()
-                .map_or(provider_dir.to_path_buf(), |name| provider_dir.join(name)),
+            wasm.file_name().map_or_else(
+                || provider_dir.to_path_buf(),
+                |name| provider_dir.join(name),
+            ),
         )?;
     }
 

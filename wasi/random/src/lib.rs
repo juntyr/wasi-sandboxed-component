@@ -6,11 +6,11 @@ pub mod random;
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "wasi-sandboxed:random/exports@0.2.5",
+        world: "wasi-sandboxed:random/exports@0.2.6",
         with: {
-            "wasi:random/insecure@0.2.5": generate,
-            "wasi:random/insecure-seed@0.2.5": generate,
-            "wasi:random/random@0.2.5": generate,
+            "wasi:random/insecure@0.2.6": generate,
+            "wasi:random/insecure-seed@0.2.6": generate,
+            "wasi:random/random@0.2.6": generate,
         },
     });
 }

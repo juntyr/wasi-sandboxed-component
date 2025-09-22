@@ -1,8 +1,8 @@
-package wasi-sandboxed:clocks@0.2.5;
+package wasi-sandboxed:clocks@0.2.6;
 
 world exports {
-  import wasi:null/io@0.2.5;
+  import wasi:null/io@0.2.6;
 
-  export wasi:clocks/monotonic-clock@0.2.5;
-  export wasi:clocks/wall-clock@0.2.5;
+  export wasi:clocks/monotonic-clock@0.2.6;
+  export wasi:clocks/wall-clock@0.2.6;
 }

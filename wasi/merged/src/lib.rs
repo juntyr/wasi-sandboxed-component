@@ -8,32 +8,32 @@ pub mod random;
 
 mod bindings {
     wit_bindgen::generate!({
-        world: "wasi-sandboxed:io/exports@0.2.5",
+        world: "wasi-sandboxed:io/exports@0.2.6",
         with: {
-            "wasi:cli/environment@0.2.5": generate,
-            "wasi:cli/exit@0.2.5": generate,
-            "wasi:cli/stderr@0.2.5": generate,
-            "wasi:cli/stdin@0.2.5": generate,
-            "wasi:cli/stdout@0.2.5": generate,
-            "wasi:cli/terminal-input@0.2.5": generate,
-            "wasi:cli/terminal-output@0.2.5": generate,
-            "wasi:cli/terminal-stderr@0.2.5": generate,
-            "wasi:cli/terminal-stdin@0.2.5": generate,
-            "wasi:cli/terminal-stdout@0.2.5": generate,
+            "wasi:cli/environment@0.2.6": generate,
+            "wasi:cli/exit@0.2.6": generate,
+            "wasi:cli/stderr@0.2.6": generate,
+            "wasi:cli/stdin@0.2.6": generate,
+            "wasi:cli/stdout@0.2.6": generate,
+            "wasi:cli/terminal-input@0.2.6": generate,
+            "wasi:cli/terminal-output@0.2.6": generate,
+            "wasi:cli/terminal-stderr@0.2.6": generate,
+            "wasi:cli/terminal-stdin@0.2.6": generate,
+            "wasi:cli/terminal-stdout@0.2.6": generate,
 
-            "wasi:clocks/monotonic-clock@0.2.5": generate,
-            "wasi:clocks/wall-clock@0.2.5": generate,
+            "wasi:clocks/monotonic-clock@0.2.6": generate,
+            "wasi:clocks/wall-clock@0.2.6": generate,
 
-            "wasi:filesystem/preopens@0.2.5": generate,
-            "wasi:filesystem/types@0.2.5": generate,
+            "wasi:filesystem/preopens@0.2.6": generate,
+            "wasi:filesystem/types@0.2.6": generate,
 
-            "wasi:io/error@0.2.5": generate,
-            "wasi:io/poll@0.2.5": generate,
-            "wasi:io/streams@0.2.5": generate,
+            "wasi:io/error@0.2.6": generate,
+            "wasi:io/poll@0.2.6": generate,
+            "wasi:io/streams@0.2.6": generate,
 
-            "wasi:random/insecure@0.2.5": generate,
-            "wasi:random/insecure-seed@0.2.5": generate,
-            "wasi:random/random@0.2.5": generate,
+            "wasi:random/insecure@0.2.6": generate,
+            "wasi:random/insecure-seed@0.2.6": generate,
+            "wasi:random/random@0.2.6": generate,
         },
     });
 

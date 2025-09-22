@@ -1,8 +1,8 @@
-package wasi-sandboxed:random@0.2.5;
+package wasi-sandboxed:random@0.2.6;
 
 world exports {
-  export wasi:random/insecure-seed@0.2.5;
-  export wasi:random/insecure@0.2.5;
+  export wasi:random/insecure-seed@0.2.6;
+  export wasi:random/insecure@0.2.6;
   // FIXME: wasi:random/random should specifically NOT be supported
-  export wasi:random/random@0.2.5;
+  export wasi:random/random@0.2.6;
 }

@@ -1,4 +1,4 @@
-package wasi-sandboxed:io@0.2.5;
+package wasi-sandboxed:io@0.2.6;
 
 interface stdio {
   write-stdout: func(contents: list<u8>);
@@ -11,29 +11,29 @@ interface stdio {
 world exports {
   import stdio;
 
-  export wasi:cli/environment@0.2.5;
-  export wasi:cli/exit@0.2.5;
-  export wasi:cli/stdin@0.2.5;
-  export wasi:cli/stdout@0.2.5;
-  export wasi:cli/stderr@0.2.5;
-  export wasi:cli/terminal-input@0.2.5;
-  export wasi:cli/terminal-output@0.2.5;
-  export wasi:cli/terminal-stdin@0.2.5;
-  export wasi:cli/terminal-stdout@0.2.5;
-  export wasi:cli/terminal-stderr@0.2.5;
+  export wasi:cli/environment@0.2.6;
+  export wasi:cli/exit@0.2.6;
+  export wasi:cli/stdin@0.2.6;
+  export wasi:cli/stdout@0.2.6;
+  export wasi:cli/stderr@0.2.6;
+  export wasi:cli/terminal-input@0.2.6;
+  export wasi:cli/terminal-output@0.2.6;
+  export wasi:cli/terminal-stdin@0.2.6;
+  export wasi:cli/terminal-stdout@0.2.6;
+  export wasi:cli/terminal-stderr@0.2.6;
 
-  export wasi:clocks/monotonic-clock@0.2.5;
-  export wasi:clocks/wall-clock@0.2.5;
+  export wasi:clocks/monotonic-clock@0.2.6;
+  export wasi:clocks/wall-clock@0.2.6;
 
-  export wasi:filesystem/preopens@0.2.5;
-  export wasi:filesystem/types@0.2.5;
+  export wasi:filesystem/preopens@0.2.6;
+  export wasi:filesystem/types@0.2.6;
 
-  export wasi:io/error@0.2.5;
-  export wasi:io/poll@0.2.5;
-  export wasi:io/streams@0.2.5;
+  export wasi:io/error@0.2.6;
+  export wasi:io/poll@0.2.6;
+  export wasi:io/streams@0.2.6;
 
-  export wasi:random/insecure-seed@0.2.5;
-  export wasi:random/insecure@0.2.5;
+  export wasi:random/insecure-seed@0.2.6;
+  export wasi:random/insecure@0.2.6;
   // FIXME: wasi:random/random should specifically NOT be supported
-  export wasi:random/random@0.2.5;
+  export wasi:random/random@0.2.6;
 }

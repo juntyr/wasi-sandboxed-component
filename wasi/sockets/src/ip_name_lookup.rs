@@ -19,6 +19,7 @@ impl WasiSocketsIpNameLookup for VirtSockets {
 
 pub enum VirtResolveAddressStream {}
 
+#[expect(clippy::uninhabited_references)] // FIXME
 impl GuestResolveAddressStream for VirtResolveAddressStream {
     fn resolve_next_address(&self) -> Result<Option<IpAddress>, ErrorCode> {
         match *self {}

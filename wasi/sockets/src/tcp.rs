@@ -16,6 +16,7 @@ impl WasiSocketsTcp for VirtSockets {
 
 pub enum VirtTcpSocket {}
 
+#[expect(clippy::uninhabited_references)] // FIXME
 impl GuestTcpSocket for VirtTcpSocket {
     fn start_bind(
         &self,

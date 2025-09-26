@@ -20,6 +20,7 @@ impl WasiSocketsUdp for VirtSockets {
 
 pub enum VirtUdpSocket {}
 
+#[expect(clippy::uninhabited_references)] // FIXME
 impl GuestUdpSocket for VirtUdpSocket {
     fn start_bind(
         &self,
@@ -83,6 +84,7 @@ impl GuestUdpSocket for VirtUdpSocket {
 
 pub enum VirtIncomingDatagramStream {}
 
+#[expect(clippy::uninhabited_references)] // FIXME
 impl GuestIncomingDatagramStream for VirtIncomingDatagramStream {
     fn receive(&self, _max_results: u64) -> Result<Vec<IncomingDatagram>, ErrorCode> {
         match *self {}
@@ -95,6 +97,7 @@ impl GuestIncomingDatagramStream for VirtIncomingDatagramStream {
 
 pub enum VirtOutgoingDatagramStream {}
 
+#[expect(clippy::uninhabited_references)] // FIXME
 impl GuestOutgoingDatagramStream for VirtOutgoingDatagramStream {
     fn check_send(&self) -> Result<u64, ErrorCode> {
         match *self {}

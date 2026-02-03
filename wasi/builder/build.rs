@@ -119,20 +119,68 @@ fn configure_cargo_cmd() -> io::Result<Command> {
     Ok(cmd)
 }
 
+fn supports_immediate_abort() -> io::Result<bool> {
+    let rustc =
+        PathBuf::from(std::env::var_os("RUSTC").ok_or_else(|| {
+            io::Error::new(io::ErrorKind::NotFound, "missing env variable `RUSTC`")
+        })?);
+
+    eprintln!("rustc={}", rustc.display());
+
+    // Special-case for compilation inside Pyodide, where we need to explicitly
+    //  circumvent the cross-compilation wrapper
+    let mut cmd = if rustc.ends_with("pywasmcross.py") {
+        Command::new("rustc")
+    } else {
+        Command::new(rustc)
+    };
+
+    // we don't need nightly Rust features but need to compile std with immediate
+    // panic abort instead of compiling with nightly, we fake it and forbid the
+    // unstable_features lint
+    if !Path::new(cmd.get_program())
+        .components()
+        .any(|c| c.as_os_str().as_encoded_bytes().starts_with(b"nightly-"))
+    {
+        cmd.env("RUSTC_BOOTSTRAP", "1");
+    }
+
+    cmd.arg("-Zunstable-options")
+        .arg("-Cpanic=immediate-abort")
+        .arg("--print")
+        .arg("cfg");
+
+    eprintln!("{cmd:?}");
+
+    Ok(cmd.status()?.success())
+}
+
 fn build_wasm_module(target_dir: &Path, crate_name: &str) -> io::Result<PathBuf> {
+    let supports_immediate_abort = supports_immediate_abort()?;
+
     let mut cmd = configure_cargo_cmd()?;
     cmd.arg("rustc")
         .arg("--crate-type=cdylib")
-        .arg("-Z")
-        .arg("build-std=std,panic_abort")
-        .arg("-Z")
-        .arg("build-std-features=panic_immediate_abort")
-        .arg("--release")
+        .arg("-Zbuild-std=std,panic_abort");
+    if !supports_immediate_abort {
+        cmd.arg("-Zbuild-std-features=panic_immediate_abort");
+    }
+    cmd.arg("--release")
         .arg("--target=wasm32-unknown-unknown")
         .arg("--package")
-        .arg(crate_name)
-        .env("RUSTFLAGS", "-C panic=abort -C strip=symbols")
-        .env("CARGO_TARGET_DIR", target_dir);
+        .arg(crate_name);
+    if supports_immediate_abort {
+        cmd.env(
+            "RUSTFLAGS",
+            "-Zunstable-options -Cpanic=immediate-abort -Cstrip=symbols",
+        );
+    } else {
+        cmd.env(
+            "RUSTFLAGS",
+            "-Zunstable-options -Cpanic=abort -Cstrip=symbols",
+        );
+    }
+    cmd.env("CARGO_TARGET_DIR", target_dir);
 
     eprintln!("executing {cmd:?}");
 

@@ -11,6 +11,8 @@ rust-version = { workspace = true }
 
 [dependencies]
 anyhow = { workspace = true }
+# async-lock v3.4.2 has MSRV 1.85
+async-lock = { version = "=3.4.1", default-features = false }
 tokio = { workspace = true, features = ["rt"] }
 tempfile = { workspace = true }
 walkdir = { workspace = true }

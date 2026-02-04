@@ -5,6 +5,7 @@ pub mod clocks;
 pub mod filesystem;
 pub mod io;
 pub mod random;
+pub mod sockets;
 
 mod bindings {
     wit_bindgen::generate!({
@@ -34,10 +35,24 @@ mod bindings {
             "wasi:random/insecure@0.2.6": generate,
             "wasi:random/insecure-seed@0.2.6": generate,
             "wasi:random/random@0.2.6": generate,
+
+            "wasi:sockets/instance-network@0.2.6": generate,
+            "wasi:sockets/network@0.2.6": generate,
+            "wasi:sockets/udp@0.2.6": generate,
+            "wasi:sockets/udp-create-socket@0.2.6": generate,
+            "wasi:sockets/tcp@0.2.6": generate,
+            "wasi:sockets/tcp-create-socket@0.2.6": generate,
+            "wasi:sockets/ip-name-lookup@0.2.6": generate,
         },
     });
 
     pub mod wasi {
+        pub mod clocks {
+            pub mod monotonic_clock {
+                pub use crate::bindings::exports::wasi::clocks::monotonic_clock::Duration;
+            }
+        }
+
         pub mod io {
             pub mod poll {
                 pub use crate::bindings::exports::wasi::io::poll::Pollable;

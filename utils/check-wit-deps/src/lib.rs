@@ -5,6 +5,7 @@ use std::{
     path::Path,
 };
 
+use ::async_lock as _;
 use tempfile::TempDir;
 use walkdir::{DirEntry, WalkDir};
 

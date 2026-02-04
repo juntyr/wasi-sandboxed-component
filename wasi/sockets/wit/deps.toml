@@ -1,0 +1,2 @@
+sockets = { url = "https://github.com/WebAssembly/wasi-sockets/archive/v0.2.6.tar.gz" }
+io = { url = "https://github.com/WebAssembly/wasi-io/archive/v0.2.6.tar.gz" }

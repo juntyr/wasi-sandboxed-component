@@ -119,7 +119,7 @@ fn configure_cargo_cmd() -> io::Result<Command> {
     Ok(cmd)
 }
 
-fn supports_immediate_abort() -> io::Result<bool> {
+fn configure_rustc_cmd() -> io::Result<Command> {
     let rustc =
         PathBuf::from(std::env::var_os("RUSTC").ok_or_else(|| {
             io::Error::new(io::ErrorKind::NotFound, "missing env variable `RUSTC`")
@@ -145,6 +145,12 @@ fn supports_immediate_abort() -> io::Result<bool> {
         cmd.env("RUSTC_BOOTSTRAP", "1");
     }
 
+    Ok(cmd)
+}
+
+fn supports_immediate_abort() -> io::Result<bool> {
+    let mut cmd = configure_rustc_cmd()?;
+
     cmd.arg("-Zunstable-options")
         .arg("-Cpanic=immediate-abort")
         .arg("--print")
@@ -161,26 +167,23 @@ fn build_wasm_module(target_dir: &Path, crate_name: &str) -> io::Result<PathBuf>
     let mut cmd = configure_cargo_cmd()?;
     cmd.arg("rustc")
         .arg("--crate-type=cdylib")
-        .arg("-Zbuild-std=std,panic_abort");
+        .arg("-Zbuild-std=alloc,core,panic_abort,std");
     if !supports_immediate_abort {
         cmd.arg("-Zbuild-std-features=panic_immediate_abort");
     }
     cmd.arg("--release")
         .arg("--target=wasm32-unknown-unknown")
         .arg("--package")
-        .arg(crate_name);
-    if supports_immediate_abort {
-        cmd.env(
+        .arg(crate_name)
+        .env(
             "RUSTFLAGS",
-            "-Zunstable-options -Cpanic=immediate-abort -Cstrip=symbols",
-        );
-    } else {
-        cmd.env(
-            "RUSTFLAGS",
-            "-Zunstable-options -Cpanic=abort -Cstrip=symbols",
-        );
-    }
-    cmd.env("CARGO_TARGET_DIR", target_dir);
+            if supports_immediate_abort {
+                "-Zunstable-options -Cpanic=immediate-abort -Cstrip=symbols"
+            } else {
+                "-Cpanic=abort -Cstrip=symbols"
+            },
+        )
+        .env("CARGO_TARGET_DIR", target_dir);
 
     eprintln!("executing {cmd:?}");
 

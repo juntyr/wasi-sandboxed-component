@@ -12,6 +12,8 @@ use ::{
 };
 
 fn main() -> io::Result<()> {
+    let supports_immediate_abort = supports_immediate_abort()?;
+
     let provider_dir = std::env::var_os("WASI_SANDBOXED_COMPONENT_PROVIDER").map(PathBuf::from);
     println!("cargo::rerun-if-env-changed=WASI_SANDBOXED_COMPONENT_PROVIDER");
 
@@ -49,7 +51,12 @@ fn main() -> io::Result<()> {
     ] {
         let const_name = crate_name.to_uppercase().replace('-', "_");
 
-        let wasm = build_wasi_component(&target_dir, crate_name, provider_dir.as_deref())?;
+        let wasm = build_wasi_component(
+            &target_dir,
+            crate_name,
+            provider_dir.as_deref(),
+            supports_immediate_abort,
+        )?;
 
         writeln!(
             &mut components,
@@ -74,6 +81,7 @@ fn main() -> io::Result<()> {
         &target_dir,
         "wasi-sandboxed-merged",
         provider_dir.as_deref(),
+        supports_immediate_abort,
     )?;
     writeln!(
         &mut components,
@@ -107,8 +115,9 @@ fn configure_cargo_cmd() -> io::Result<Command> {
     cmd.env_remove("CARGO_ENCODED_RUSTFLAGS");
 
     // we don't need nightly Rust features but need to compile std with immediate
-    // panic abort instead of compiling with nightly, we fake it and forbid the
-    // unstable_features lint
+    //  panic abort
+    // instead of compiling with nightly, we fake it and forbid the
+    //  `unstable_features` lint
     if !Path::new(cmd.get_program())
         .components()
         .any(|c| c.as_os_str().as_encoded_bytes().starts_with(b"nightly-"))
@@ -136,8 +145,9 @@ fn configure_rustc_cmd() -> io::Result<Command> {
     };
 
     // we don't need nightly Rust features but need to compile std with immediate
-    // panic abort instead of compiling with nightly, we fake it and forbid the
-    // unstable_features lint
+    //  panic abort
+    // instead of compiling with nightly, we fake it and forbid the
+    //  `unstable_features` lint
     if !Path::new(cmd.get_program())
         .components()
         .any(|c| c.as_os_str().as_encoded_bytes().starts_with(b"nightly-"))
@@ -161,9 +171,11 @@ fn supports_immediate_abort() -> io::Result<bool> {
     Ok(cmd.status()?.success())
 }
 
-fn build_wasm_module(target_dir: &Path, crate_name: &str) -> io::Result<PathBuf> {
-    let supports_immediate_abort = supports_immediate_abort()?;
-
+fn build_wasm_module(
+    target_dir: &Path,
+    crate_name: &str,
+    supports_immediate_abort: bool,
+) -> io::Result<PathBuf> {
     let mut cmd = configure_cargo_cmd()?;
     cmd.arg("rustc")
         .arg("--crate-type=cdylib")
@@ -251,6 +263,7 @@ fn build_wasi_component(
     target_dir: &Path,
     crate_name: &str,
     provider_dir: Option<&Path>,
+    supports_immediate_abort: bool,
 ) -> io::Result<PathBuf> {
     // Check for `clippy` and skip compilation in that case
     //  since `clippy` pollutes the `RUSTFLAGS` between rebuilds
@@ -262,7 +275,7 @@ fn build_wasi_component(
         return Ok(PathBuf::from("/dev/null"));
     }
 
-    let wasm = build_wasm_module(target_dir, crate_name)?;
+    let wasm = build_wasm_module(target_dir, crate_name, supports_immediate_abort)?;
     add_change_dependencies(&wasm)?;
 
     let wasm = create_new_component(&wasm)?;

@@ -7,6 +7,9 @@
 [submodule "wasi/wit-deps/wasi-filesystem"]
 	path = wasi/wit-deps/wasi-filesystem
 	url = https://github.com/WebAssembly/wasi-filesystem.git
+[submodule "wasi/wit-deps/wasi-http"]
+	path = wasi/wit-deps/wasi-http
+	url = https://github.com/WebAssembly/wasi-http.git
 [submodule "wasi/wit-deps/wasi-io"]
 	path = wasi/wit-deps/wasi-io
 	url = https://github.com/WebAssembly/wasi-io.git
@@ -16,6 +19,3 @@
 [submodule "wasi/wit-deps/wasi-sockets"]
 	path = wasi/wit-deps/wasi-sockets
 	url = https://github.com/WebAssembly/wasi-sockets.git
-[submodule "wasi/wit-deps/wasi-http"]
-	path = wasi/wit-deps/wasi-http
-	url = https://github.com/WebAssembly/wasi-http.git

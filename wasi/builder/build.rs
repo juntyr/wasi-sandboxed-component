@@ -5,7 +5,7 @@ use std::{
     process::Command,
 };
 
-use {
+use ::{
     wasi_sandboxed_cli as _, wasi_sandboxed_clocks as _, wasi_sandboxed_filesystem as _,
     wasi_sandboxed_http as _, wasi_sandboxed_io as _, wasi_sandboxed_merged as _,
     wasi_sandboxed_random as _, wasi_sandboxed_sockets as _,

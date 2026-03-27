@@ -5,6 +5,7 @@ pub mod exit;
 pub mod stdio;
 pub mod terminal;
 
+#[allow(unknown_lints, clippy::same_length_and_capacity)]
 mod bindings {
     wit_bindgen::generate!({
         world: "wasi-sandboxed:cli/exports@0.2.6",

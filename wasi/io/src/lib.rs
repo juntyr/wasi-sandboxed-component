@@ -12,6 +12,7 @@ pub mod error;
 pub mod poll;
 pub mod streams;
 
+#[allow(unknown_lints, clippy::same_length_and_capacity)]
 mod bindings {
     wit_bindgen::generate!({
         world: "wasi-sandboxed:io/exports@0.2.6",

@@ -7,8 +7,8 @@ use std::{
 
 use ::{
     wasi_sandboxed_cli as _, wasi_sandboxed_clocks as _, wasi_sandboxed_filesystem as _,
-    wasi_sandboxed_io as _, wasi_sandboxed_merged as _, wasi_sandboxed_random as _,
-    wasi_sandboxed_sockets as _,
+    wasi_sandboxed_http as _, wasi_sandboxed_io as _, wasi_sandboxed_merged as _,
+    wasi_sandboxed_random as _, wasi_sandboxed_sockets as _,
 };
 
 fn main() -> io::Result<()> {
@@ -45,6 +45,7 @@ fn main() -> io::Result<()> {
         ("wasi-sandboxed-cli", "wasi-sandboxed:cli"),
         ("wasi-sandboxed-clocks", "wasi-sandboxed:clocks"),
         ("wasi-sandboxed-filesystem", "wasi-sandboxed:filesystem"),
+        ("wasi-sandboxed-http", "wasi-sandboxed:http"),
         ("wasi-sandboxed-io", "wasi-sandboxed:io"),
         ("wasi-sandboxed-random", "wasi-sandboxed:random"),
         ("wasi-sandboxed-sockets", "wasi-sandboxed:sockets"),

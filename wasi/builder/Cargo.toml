@@ -17,6 +17,7 @@ wit-component = { workspace = true }
 wasi-sandboxed-cli = { workspace = true }
 wasi-sandboxed-clocks = { workspace = true }
 wasi-sandboxed-filesystem = { workspace = true }
+wasi-sandboxed-http = { workspace = true }
 wasi-sandboxed-io = { workspace = true }
 wasi-sandboxed-random = { workspace = true }
 wasi-sandboxed-sockets = { workspace = true }

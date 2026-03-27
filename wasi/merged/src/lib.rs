@@ -3,10 +3,12 @@
 pub mod cli;
 pub mod clocks;
 pub mod filesystem;
+pub mod http;
 pub mod io;
 pub mod random;
 pub mod sockets;
 
+#[allow(unknown_lints, clippy::same_length_and_capacity)]
 mod bindings {
     wit_bindgen::generate!({
         world: "wasi-sandboxed:io/exports@0.2.6",
@@ -27,6 +29,9 @@ mod bindings {
 
             "wasi:filesystem/preopens@0.2.6": generate,
             "wasi:filesystem/types@0.2.6": generate,
+
+            "wasi:http/outgoing-handler@0.2.6": generate,
+            "wasi:http/types@0.2.6": generate,
 
             "wasi:io/error@0.2.6": generate,
             "wasi:io/poll@0.2.6": generate,
@@ -71,6 +76,10 @@ mod bindings {
 
                 pub fn closed_input() -> crate::bindings::exports::wasi::io::streams::InputStream {
                     crate::io::streams::VirtInputStream::closed()
+                }
+
+                pub fn output_sink() -> crate::bindings::exports::wasi::io::streams::OutputStream {
+                    crate::io::streams::VirtOutputStream::sink()
                 }
 
                 pub fn stdout() -> crate::bindings::exports::wasi::io::streams::OutputStream {

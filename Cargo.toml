@@ -7,6 +7,7 @@ members = [
     "wasi/cli",
     "wasi/clocks",
     "wasi/filesystem",
+    "wasi/http",
     "wasi/io",
     "wasi/random",
     "wasi/sockets",
@@ -31,6 +32,7 @@ wasi-sandboxed-component-builder = { path = "wasi/builder", default-features = f
 wasi-sandboxed-cli = { path = "wasi/cli", default-features = false }
 wasi-sandboxed-clocks = { path = "wasi/clocks", default-features = false }
 wasi-sandboxed-filesystem = { path = "wasi/filesystem", default-features = false }
+wasi-sandboxed-http = { path = "wasi/http", default-features = false }
 wasi-sandboxed-io = { path = "wasi/io", default-features = false }
 wasi-sandboxed-merged = { path = "wasi/merged", default-features = false }
 wasi-sandboxed-random = { path = "wasi/random", default-features = false }
@@ -38,6 +40,7 @@ wasi-sandboxed-sockets = { path = "wasi/sockets", default-features = false }
 
 # crates.io third-party dependencies
 anyhow = { version = "1.0.72", default-features = false }
+map_vec = { version = "0.6", default-features = false }
 rand_core = { version = "0.9", default-features = false }
 rand_pcg = { version = "0.9", default-features = false }
 scratch = { version = "1.0", default-features = false }

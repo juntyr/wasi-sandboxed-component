@@ -44,12 +44,12 @@ struct VirtFieldsInner {
 
 impl VirtFields {
     #[expect(clippy::unwrap_used)]
-    fn read(&self) -> RwLockReadGuard<VirtFieldsInner> {
+    fn read(&self) -> RwLockReadGuard<'_, VirtFieldsInner> {
         self.inner.read().unwrap()
     }
 
     #[expect(clippy::unwrap_used)]
-    fn write(&self) -> Result<RwLockWriteGuard<VirtFieldsInner>, HeaderError> {
+    fn write(&self) -> Result<RwLockWriteGuard<'_, VirtFieldsInner>, HeaderError> {
         if self.is_mutable {
             Ok(self.inner.write().unwrap())
         } else {
@@ -167,12 +167,12 @@ struct VirtOutgoingRequestInner {
 
 impl VirtOutgoingRequest {
     #[expect(clippy::unwrap_used)]
-    fn read(&self) -> RwLockReadGuard<VirtOutgoingRequestInner> {
+    fn read(&self) -> RwLockReadGuard<'_, VirtOutgoingRequestInner> {
         self.inner.read().unwrap()
     }
 
     #[expect(clippy::unwrap_used)]
-    fn write(&self) -> RwLockWriteGuard<VirtOutgoingRequestInner> {
+    fn write(&self) -> RwLockWriteGuard<'_, VirtOutgoingRequestInner> {
         self.inner.write().unwrap()
     }
 }
@@ -263,12 +263,12 @@ struct VirtRequestOptionsInner {
 
 impl VirtRequestOptions {
     #[expect(clippy::unwrap_used)]
-    fn read(&self) -> RwLockReadGuard<VirtRequestOptionsInner> {
+    fn read(&self) -> RwLockReadGuard<'_, VirtRequestOptionsInner> {
         self.inner.read().unwrap()
     }
 
     #[expect(clippy::unwrap_used)]
-    fn write(&self) -> RwLockWriteGuard<VirtRequestOptionsInner> {
+    fn write(&self) -> RwLockWriteGuard<'_, VirtRequestOptionsInner> {
         self.inner.write().unwrap()
     }
 }
@@ -375,12 +375,12 @@ struct VirtOutgoingResponseInner {
 
 impl VirtOutgoingResponse {
     #[expect(clippy::unwrap_used)]
-    fn read(&self) -> RwLockReadGuard<VirtOutgoingResponseInner> {
+    fn read(&self) -> RwLockReadGuard<'_, VirtOutgoingResponseInner> {
         self.inner.read().unwrap()
     }
 
     #[expect(clippy::unwrap_used)]
-    fn write(&self) -> RwLockWriteGuard<VirtOutgoingResponseInner> {
+    fn write(&self) -> RwLockWriteGuard<'_, VirtOutgoingResponseInner> {
         self.inner.write().unwrap()
     }
 }
@@ -438,7 +438,7 @@ struct VirtOutgoingBodyInner {
 
 impl VirtOutgoingBody {
     #[expect(clippy::unwrap_used)]
-    fn write(&self) -> MutexGuard<VirtOutgoingBodyInner> {
+    fn write(&self) -> MutexGuard<'_, VirtOutgoingBodyInner> {
         self.inner.lock().unwrap()
     }
 }

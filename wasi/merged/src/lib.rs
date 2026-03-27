@@ -96,7 +96,7 @@ mod bindings {
 
 pub enum VirtMerged {}
 
-// #[cfg(target_arch = "wasm32")]
+#[cfg(target_arch = "wasm32")]
 #[expect(unsafe_code)]
 mod export {
     use crate::VirtMerged;

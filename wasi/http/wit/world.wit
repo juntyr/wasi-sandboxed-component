@@ -1,0 +1,5 @@
+package wasi-sandboxed:http@0.2.6;
+
+world exports {
+  export wasi:http/outgoing-handler@0.2.6;
+}

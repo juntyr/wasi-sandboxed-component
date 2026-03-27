@@ -16,3 +16,6 @@
 [submodule "wasi/wit-deps/wasi-sockets"]
 	path = wasi/wit-deps/wasi-sockets
 	url = https://github.com/WebAssembly/wasi-sockets.git
+[submodule "wasi/wit-deps/wasi-http"]
+	path = wasi/wit-deps/wasi-http
+	url = https://github.com/WebAssembly/wasi-http.git

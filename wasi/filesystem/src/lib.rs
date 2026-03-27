@@ -3,6 +3,7 @@
 pub mod preopens;
 pub mod types;
 
+#[allow(unknown_lints, clippy::same_length_and_capacity)]
 mod bindings {
     wit_bindgen::generate!({
         world: "wasi-sandboxed:filesystem/exports@0.2.6",

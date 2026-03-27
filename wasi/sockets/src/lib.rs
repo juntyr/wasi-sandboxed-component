@@ -8,6 +8,7 @@ pub mod tcp_create_socket;
 pub mod udp;
 pub mod udp_create_socket;
 
+#[allow(unknown_lints, clippy::same_length_and_capacity)]
 mod bindings {
     wit_bindgen::generate!({
         world: "wasi-sandboxed:sockets/exports@0.2.6",

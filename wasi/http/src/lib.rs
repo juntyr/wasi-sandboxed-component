@@ -2,6 +2,7 @@
 
 pub mod outgoing_handler;
 
+#[allow(unknown_lints, clippy::same_length_and_capacity)]
 mod bindings {
     wit_bindgen::generate!({
         world: "wasi-sandboxed:http/exports@0.2.6",

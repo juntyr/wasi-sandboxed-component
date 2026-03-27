@@ -7,6 +7,7 @@ pub mod io;
 pub mod random;
 pub mod sockets;
 
+#[allow(unknown_lints, clippy::same_length_and_capacity)]
 mod bindings {
     wit_bindgen::generate!({
         world: "wasi-sandboxed:io/exports@0.2.6",

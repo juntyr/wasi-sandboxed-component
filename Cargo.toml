@@ -40,6 +40,7 @@ wasi-sandboxed-sockets = { path = "wasi/sockets", default-features = false }
 
 # crates.io third-party dependencies
 anyhow = { version = "1.0.72", default-features = false }
+map_vec = { version = "0.6", default-features = false }
 rand_core = { version = "0.9", default-features = false }
 rand_pcg = { version = "0.9", default-features = false }
 scratch = { version = "1.0", default-features = false }

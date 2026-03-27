@@ -3,6 +3,7 @@
 pub mod cli;
 pub mod clocks;
 pub mod filesystem;
+pub mod http;
 pub mod io;
 pub mod random;
 pub mod sockets;
@@ -28,6 +29,9 @@ mod bindings {
 
             "wasi:filesystem/preopens@0.2.6": generate,
             "wasi:filesystem/types@0.2.6": generate,
+
+            "wasi:http/outgoing-handler@0.2.6": generate,
+            "wasi:http/types@0.2.6": generate,
 
             "wasi:io/error@0.2.6": generate,
             "wasi:io/poll@0.2.6": generate,
@@ -74,6 +78,10 @@ mod bindings {
                     crate::io::streams::VirtInputStream::closed()
                 }
 
+                pub fn output_sink() -> crate::bindings::exports::wasi::io::streams::OutputStream {
+                    crate::io::streams::VirtOutputStream::sink()
+                }
+
                 pub fn stdout() -> crate::bindings::exports::wasi::io::streams::OutputStream {
                     crate::io::streams::VirtOutputStream::stdout()
                 }
@@ -88,7 +96,7 @@ mod bindings {
 
 pub enum VirtMerged {}
 
-#[cfg(target_arch = "wasm32")]
+// #[cfg(target_arch = "wasm32")]
 #[expect(unsafe_code)]
 mod export {
     use crate::VirtMerged;

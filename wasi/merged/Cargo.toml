@@ -8,6 +8,7 @@ license = { workspace = true }
 rust-version = { workspace = true }
 
 [dependencies]
+map_vec = { workspace = true }
 rand_core = { workspace = true }
 rand_pcg = { workspace = true }
 wit-bindgen = { workspace = true, features = ["macros", "realloc"] }

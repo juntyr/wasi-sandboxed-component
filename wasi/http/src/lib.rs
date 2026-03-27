@@ -1,6 +1,7 @@
 #![cfg_attr(not(test), no_main)]
 
 pub mod outgoing_handler;
+pub mod types;
 
 #[allow(unknown_lints, clippy::same_length_and_capacity)]
 mod bindings {
@@ -15,12 +16,16 @@ mod bindings {
             "wasi:io/poll@0.2.6": generate,
             "wasi:io/streams@0.2.6": generate,
 
+            "wasi:null/io@0.2.6": generate,
+
             "wasi:clocks/monotonic-clock@0.2.6": generate,
         },
     });
 }
 
 pub enum VirtHttp {}
+
+type WasiIoErrorRef<'a> = &'a crate::bindings::wasi::io::error::Error;
 
 #[cfg(target_arch = "wasm32")]
 #[expect(unsafe_code)]
